@@ -14,3 +14,21 @@ export const createPostModel = async (titulo, img, descripcion) => {
   const result = await pool.query(sqlQuery);
   return result.rows;
 };
+
+export const deletePostModel = async (id) => {
+  const sqlQuery = {
+    text: "DELETE FROM posts WHERE id = $1 RETURNING *",
+    values: [id],
+  };
+  const result = await pool.query(sqlQuery);
+  return result.rows;
+};
+
+export const updatePostModel = async (id) => {
+  const sqlQuery = {
+    text: "UPDATE posts SET likes = likes + 1 WHERE id = $1 RETURNING *",
+    values: [id],
+  };
+  const result = await pool.query(sqlQuery);
+  return result.rows;
+};
